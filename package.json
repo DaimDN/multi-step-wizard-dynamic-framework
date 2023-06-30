@@ -1,0 +1,29 @@
+{
+  "name": "multi-step-wizard",
+  "version": "1.0.0",
+  "description": "multi step wizard setup system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "npx nodemon",
+    "build": "rimraf ./build && tsc",
+    "start": "node build/index.js",
+    "lint": "eslint . --ext .ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaimDN/multi-step-wizard.git"
+  },
+  "author": "A daim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DaimDN/multi-step-wizard/issues"
+  },
+  "homepage": "https://github.com/DaimDN/multi-step-wizard#readme",
+  "dependencies": {
+    "config": "^3.3.9",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node": "^20.3.1"
+  }
+}
