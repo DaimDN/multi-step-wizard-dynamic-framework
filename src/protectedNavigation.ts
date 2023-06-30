@@ -4,11 +4,11 @@ import * as URLS from './urls';
 
 
 
-export class Navigation {
+export class ProtectedRoutedNavigationSetup {
     public enableFor(app: Application): void {
-       
-        app.get('/', (req, res)=> res.json({response: 'welcome'}));
 
+       
+        app.get('/app', (req, res)=> res.json({msg: 'welcome'}));
 
     }
 
