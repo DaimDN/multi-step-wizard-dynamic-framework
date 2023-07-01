@@ -31,7 +31,7 @@ const { Title } = Typography;
     }
   }
     const navigateToWizardScreen = async (params: string) => {
-      alert(params);
+      window.location.href = `/wizard/view/${params}?edit=true&step=1`;
       
   }
   /**
