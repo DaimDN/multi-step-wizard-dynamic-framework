@@ -1,15 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Navigations} from './routes/navigation';
+import {STORE} from './redux/store';
+import {Provider} from 'react-redux'
+import { BrowserRouter as Router, Route, Routes }
+    from "react-router-dom";
+
+
+class Routable{
+  private static RoutableInstance: Routable;
+  private constructor() { }
+  public static getInstance(): Routable {
+      if (!Routable.RoutableInstance) {
+          Routable.RoutableInstance = new Routable();
+      }
+      return Routable.RoutableInstance;
+  }
+  public NavigationRouter = () => 
+  (<Router>
+  <Routes>
+  {Navigations.map(nav => <Route   path={nav.link as string} element={<nav.component/>} /> )}
+  </Routes>
+  </Router>);
+
+}
+
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={STORE}>
+    {Routable.getInstance().NavigationRouter()}
+    </Provider>
   </React.StrictMode>
 );
 

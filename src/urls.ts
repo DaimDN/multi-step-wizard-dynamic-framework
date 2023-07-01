@@ -13,4 +13,6 @@ export const GET_ALL_WIZARD: PageLink = `${API}/wizard/all`;
 export const GET_WIZARD_SETUP_STARTED: PageLink = `${API}/wizard/start/:Id`;
 export const PUT_UPDATE_WIZARD_DATA : PageLink = `${API}/wizard/:Id`;
 
+export const GET_AUTH_TOKEN : PageLink = `${API}/token`;
+
 export const GET_DEFAULT_ROUTES : PageLink = '*';
