@@ -21,38 +21,38 @@ export const WizardModel = () => {
                             features: [
                             {
                                 id: 1,
-                                name: 'Tab Switcher',
+                                value: 'Tab Switcher',
                                 isEnabled: false,
                                 type: 'checkbox',
 
                             },
                             {
                                 id: 2,
-                                name: 'Menu Switcher',
+                                value: 'Menu Switcher',
                                 isEnabled: false,
                                 type: 'checkbox',
                             },
                             {
                                 id: 3,
-                                name: 'Footer Switcher',
+                                value: 'Footer Switcher',
                                 isEnabled: false,
                                 type: 'checkbox',
                             },
                             {
                                 id: 4,
-                                name: 'Side Menu Switcher',
+                                value: 'Side Menu Switcher',
                                 isEnabled: false,
                                 type: 'checkbox',
                             },
                             {
                                 id: 5,
-                                name: 'Dock Launhcer',
+                                value: 'Dock Launhcer',
                                 isEnabled: false,
                                 type: 'checkbox',
                             },
                             {
                                 id: 6,
-                                name: 'Menu Toggler',
+                                value: 'Menu Toggler',
                                 isEnabled: false,
                                 type: 'checkbox',
                             }

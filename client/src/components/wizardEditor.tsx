@@ -3,9 +3,9 @@ import {Fragment} from 'react';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {useTitle} from '../hooks/useTitle';
 import { connect } from 'react-redux';
-import {HOME} from '../routes/urls';
 import {Typography} from 'antd';
 import {FormFragment} from './partials/FormFragment';
+import { Summary } from './partials/summary';
 const { Title } = Typography;
 
 const WizardEditor = ({authenticationDetails, wizards}:any) => {
@@ -29,29 +29,20 @@ const WizardEditor = ({authenticationDetails, wizards}:any) => {
     the URL's search parameters. */
     const editOption = searchParams.get('edit');
     const stepNo = searchParams.get('step');
+    const summaryPreview = searchParams.get('preview');
 
-    /* The code block `if(!editOption || !stepNo) { window.location.href = HOME; }` is checking if either
-    `editOption` or `stepNo` is falsy. If either of them is falsy, it means that the required query
-    parameters are missing from the URL. In that case, the code redirects the user to the `HOME` route
-    by setting `window.location.href` to the value of `HOME`. This ensures that the user is redirected
-    to the home page if the necessary query parameters are not present in the URL. */
-    if(!editOption || !stepNo) {
-        window.location.href = HOME;
-    }
-
+    console.log({editOption, stepNo, summaryPreview})
 
     return <Fragment>
         <main className='wizard_screen'>
       <Title>Wizard Editor - {Id?.slice(0, 8).toUpperCase()}</Title>
-      <Title level={3}> Step {stepNo}</Title>
+      <Title level={3}> {stepNo && 'Step No: '+ stepNo} {summaryPreview && 'Summary'}</Title>
        {Number(stepNo) === 1 && <FormFragment formFields={{...findWizardFromWizard}} stepNo={stepNo} authenticationDetails={authenticationDetails} Id={Id}/>}
        {Number(stepNo) === 2 && <FormFragment formFields={{...findWizardFromWizard}} stepNo={stepNo} authenticationDetails={authenticationDetails} Id={Id}/>}
+       {summaryPreview && <Summary formFields={{...findWizardFromWizard}}/>}
       </main>
     </Fragment>
 }
-
-
-
   /**
    * The function `mapStoreStatesToPropsMapper` maps the state properties `authDetails` and
    * `wizardDetails` to the props `authenticationDetails` and `wizards` respectively.

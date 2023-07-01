@@ -17,3 +17,15 @@
 .remove_icon{
     margin-bottom: 12px;
 }
+
+.summary_step1{
+    padding: 2vh;
+    padding-right: 10vh;
+    padding-left: 10vh;
+}
+
+.summary_step2{
+    padding: 2vh;
+    padding-right: 10vh;
+    padding-left: 10vh;
+}
