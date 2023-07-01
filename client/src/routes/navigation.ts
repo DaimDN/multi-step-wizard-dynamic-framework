@@ -3,6 +3,7 @@ import * as URLS from './urls'
 import MainLoader from '../main';
 import {NotFound} from '../components/notfound';
 import {NavigatableItems} from './index';
+import WIZARD_SETUP from '../components/wizardEditor';
 
     /* The `const Navigations` is an array of objects that define the navigation links and their
     corresponding components. Each object in the array has two properties: */
@@ -10,9 +11,14 @@ import {NavigatableItems} from './index';
         {  link: URLS.HOME,
         component: MainLoader,
         },
-    {  link: '*',
-        component: NotFound ,
-    }, 
+        {
+         link: URLS.WIZARD_SETUP,
+         component: WIZARD_SETUP,
+        },
+        {  
+           link: '*',
+           component: NotFound ,
+        }, 
 
     ];
 
