@@ -2,7 +2,7 @@
     "PORT": 5000,
     "security": {
         "authHeaders": "x-auth-appvia-token",
-        "authToken": ""
+        "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IkFiZHVsIERhaW0iLCJhcHAiOiJhcHB2aWEiLCJpYXQiOjF9.nEaAg5kmeOCWcN9V3Xbn6xwDRqKrQkOk7wy_fesaXFg"
 
     }
 }

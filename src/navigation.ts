@@ -6,9 +6,7 @@ import * as URLS from './urls';
 
 export class Navigation {
     public enableFor(app: Application): void {
-       
-        app.get('/', (req, res)=> res.json({response: 'welcome'}));
-
+        app.get(URLS.GET_SERVER_CHECK as string, (req, res)=> res.status(200).json({response: 'Welcome to Appvia App' }));
 
     }
 
