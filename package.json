@@ -4,6 +4,8 @@
   "description": "multi step wizard setup system",
   "main": "server.js",
   "scripts": {
+    "install": "concurrently \"npm install\" \"npm install --prefix client\"",
+    "build:client": "npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "npx nodemon",
     "build": "rimraf ./build && tsc",
@@ -22,6 +24,7 @@
   "homepage": "https://github.com/DaimDN/multi-step-wizard#readme",
   "dependencies": {
     "@types/uuid": "^9.0.2",
+    "concurrently": "^8.2.0",
     "config": "^3.3.9",
     "cors": "^2.8.5",
     "express": "^4.18.2",
