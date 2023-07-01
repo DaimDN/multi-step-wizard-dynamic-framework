@@ -6,16 +6,15 @@
 export enum WizardRepositoryStorages {
     Wizards = 'wizard'
 }
-
-
-
-
+/* The WizardRepository class is a Singleton class that provides access to a repository of wizards. */
  export class WizardRepository {
 
+    /* The `private static instance: WizardRepository` is a static variable that holds the single instance
+    of the `WizardRepository` class. It is declared as `private` to prevent direct access from outside
+    the class. */
     private static instance: WizardRepository;
 
     private Repository;
-
         /**
          * The Singleton's constructor should always be private to prevent direct
          * construction calls with the `new` operator.

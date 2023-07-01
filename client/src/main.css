@@ -1,0 +1,19 @@
+.wizard_screen{
+    padding: 10vw;
+    margin: auto;
+    text-align: center;
+  
+}
+
+.flex{
+    display: flex;
+    display: -webkit-box;      
+    display: -moz-box;         
+    display: -ms-flexbox;     
+    display: -webkit-flex;         
+    overflow-x: scroll;
+}
+
+.remove_icon{
+    margin-bottom: 12px;
+}
