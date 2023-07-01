@@ -67,6 +67,37 @@ export class ProtectedRoutedNavigationSetup {
             }
             return res.status(200).json({wizards: this.Repository.get(WizardRepositoryStorages.Wizards), msg: 'Wizard added successfully', status: 200})
         });
+
+    /* The code block you provided is handling a POST request to create a new wizard. */
+        app.post(URLS.POST_WIZARD_CREATOR as string , (req: AppRequest, res: AppResponse)=> {
+            const RandomID = uuidv4();
+            const newModel = WizardModel();
+            newModel.id = RandomID;
+            if(!this.Repository.has(WizardRepositoryStorages.Wizards)){
+                this.Repository.set(WizardRepositoryStorages.Wizards, [newModel]);
+            }else{
+                const currentWizardInCache = this.Repository.get(WizardRepositoryStorages.Wizards) as [];
+                this.Repository.set(WizardRepositoryStorages.Wizards, [...currentWizardInCache, newModel]);
+            }
+            return res.status(200).json({wizards: this.Repository.get(WizardRepositoryStorages.Wizards), msg: 'Wizard added successfully', status: 200})
+        });
+
+        /* The code block you provided is handling a POST request to delete a specific wizard from the
+        repository. */
+        app.get(URLS.GET_DELETE_WIZARD as string , (req: AppRequest, res: AppResponse)=> {
+            const {Id}: any = req.params;
+            if(req.params.hasOwnProperty('Id')){
+                const repositoryElimintaingWizardWithId = this.Repository.get(WizardRepositoryStorages.Wizards)?.filter(wizard => wizard.id !== Id);
+                console.log({Id, repositoryElimintaingWizardWithId})
+                this.Repository.set(WizardRepositoryStorages.Wizards, repositoryElimintaingWizardWithId as [] );
+                return res.status(200).json({msg: 'wizard has been removed successfully' });
+            }
+            else{
+                return res.status(404).json({data: 'wizard not found'});
+            }
+        });
+
+
        /* The code block you provided is handling a PUT request to update the data of a specific wizard
        in the repository. */
         app.put(URLS.PUT_UPDATE_WIZARD_DATA as string, (req: AppRequest, res: AppResponse)=> {

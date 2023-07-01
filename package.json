@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/DaimDN/multi-step-wizard#readme",
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@types/uuid": "^9.0.2",
     "concurrently": "^8.2.0",
     "config": "^3.3.9",
