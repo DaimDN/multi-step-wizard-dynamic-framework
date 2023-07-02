@@ -1,17 +1,21 @@
 import { Divider, Typography, Button } from 'antd';
 import { HOME } from "../../routes/urls";
+import { useNavigate } from 'react-router-dom';
+
+
 const { Title } = Typography;
 
 
 
 export const Summary = ({formFields}: any) => {
+    const Navigator = useNavigate(); 
 
     const step1QuestionsAndAnswers = formFields?.wizard?.data?.step1;
     const step2QuestionsAndAnswers = step1QuestionsAndAnswers?.data?.step2?.features;
 
     const SummayPostHandler = (event: any) => {
         event.preventDefault();
-        window.location.href = HOME;
+        Navigator(HOME);
     }
     if(step1QuestionsAndAnswers && step2QuestionsAndAnswers){
         return <div style={{textAlign: 'left'}}>
