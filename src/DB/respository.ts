@@ -1,5 +1,5 @@
 /* The WizardRepository class is a Singleton class that provides access to a repository of wizards. */
-
+import {WizardModelInterface} from '../index';
 
 
 
@@ -20,7 +20,7 @@ export enum WizardRepositoryStorages {
          * construction calls with the `new` operator.
          */
     private constructor() {
-        this.Repository = new Map<string, any[]>();
+        this.Repository = new Map<string, WizardModelInterface[]>();
      }
 
         /**

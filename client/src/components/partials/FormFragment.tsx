@@ -92,8 +92,7 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox'
             fieldsOfForms = fields && Object.entries(fields);
         }
         else if(Number(stepNo) === 2){
-            const step2Fields: any = formFields?.wizard?.data.step1.data.step2.features;
-            fieldsOfForms = fields && Object.entries(step2Fields);
+            fieldsOfForms = fields && Object.entries(formFields?.wizard?.data.step1.data.step2.features);
         }
         return <form style={{textAlign:'left'}} onSubmit={submitForm}>
             {Array.isArray(fieldsOfForms) && <>
