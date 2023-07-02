@@ -41,7 +41,6 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox'
            /* The code block you provided is handling the form submission for a multi-step wizard form
            in a React application. */
             if(Number(stepNo) === 1){
-                const nextNavigationURL = window.location.href.split('step=1').join('step=2');
                 const apiRequestResourceData = formFields;
                 const step1FormFilledData = {
                     isDone: true,
@@ -55,14 +54,13 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox'
                 try {
                  const updateResourceInServer = await AxiosServiceInstance({'x-auth-appvia-token': authenticationDetails.userAuthenticationDetails.token}).put(`/api/wizard/${Id}`, apiRequestResourceData);
                  console.log({updateResourceInServer});
-                 window.location.href = nextNavigationURL;
+                 window.location.href = window.location.href.split('step=1').join('step=2');
                 } catch (error) {
                 alert('Error while updating')
                 }
 
             }
             else if(Number(stepNo) ===2){
-                const nextNavigationURL = window.location.href.split('edit=true&step=2').join('preview=summary');
                 const allToggledCheckBoxes = Object.values(formData);
                 const allFeatures =  formFields?.wizard?.data.step1.data.step2.features;
                 const allSelectedFeatures = allFeatures.map((feature: any) => {
@@ -75,7 +73,7 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox'
                 featureEnabledFormData.wizard.data.step1.data.step2.features = allSelectedFeatures;
                 try {
                     await AxiosServiceInstance({'x-auth-appvia-token': authenticationDetails.userAuthenticationDetails.token}).put(`/api/wizard/${Id}`, featureEnabledFormData);
-                     window.location.href = nextNavigationURL;
+                     window.location.href = window.location.href.split('edit=true&step=2').join('preview=summary');
                    } catch (error) {
                    alert('Error while updating')
                    }
