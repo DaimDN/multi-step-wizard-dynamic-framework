@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import {Typography} from 'antd';
 import {FormFragment} from './partials/FormFragment';
 import { Summary } from './partials/summary';
+import { WizardModelInterface } from '../routes';
 const { Title } = Typography;
 
-const WizardEditor = ({authenticationDetails, wizards}:any) => {
+/* The `WizardEditor` component is a functional component that receives two props:
+`authenticationDetails` and `wizards`. */
+const WizardEditor = ({authenticationDetails, wizards}: {authenticationDetails: {userAuthenticationDetails: {token: string}}, wizards: WizardModelInterface[]} ) => {
     /* The line `const { Id } = useParams();` is using the `useParams` hook from the `react-router-dom`
     library to extract the value of the `Id` parameter from the URL. It allows you to access the
     dynamic portion of the URL and use it in your component. In this case, it is extracting the value
@@ -50,9 +53,9 @@ const WizardEditor = ({authenticationDetails, wizards}:any) => {
    * @param state - The `state` parameter is an object that represents the current state of the
    * application. It has two properties:
    */
-  const mapStoreStatesToPropsMapper = (state: { authDetails: {userAuthenticationDetails: {token: string}}; wizardDetails: {wizardPayload: any[]}; }) => ({
+  const mapStoreStatesToPropsMapper = (state: { authDetails: {userAuthenticationDetails: {token: string}}; wizardDetails: {wizardPayload: WizardModelInterface[]}; }) => ({
     authenticationDetails: state.authDetails,
-    wizards: state.wizardDetails.wizardPayload
+    wizards: state.wizardDetails.wizardPayload as WizardModelInterface[]
   });
 
 export default connect(mapStoreStatesToPropsMapper)(WizardEditor);

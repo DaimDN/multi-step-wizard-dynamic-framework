@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import './main.css'
 import {Card, Button, Typography} from 'antd';
 import {AxiosServiceInstance} from './common/network/ajaxInstance';
+import { WizardModelInterface } from './routes';
 
 
 const { Title } = Typography;
 
 
- const MainLoader = ({authenticationDetails, wizards}:any) => {
+ const MainLoader = ({authenticationDetails, wizards}: {authenticationDetails: {userAuthenticationDetails: {token: string}}, wizards: WizardModelInterface[]}) => {
 
 /* The `useTitle('Wizard Creator - Appvia');` is a custom hook that sets the title of the webpage to
 "Wizard Creator - Appvia". It is used to dynamically update the title of the webpage. */
@@ -72,9 +73,9 @@ const { Title } = Typography;
    * @param state - The `state` parameter is an object that represents the current state of the
    * application. It has two properties:
    */
-  const mapStoreStatesToPropsMapper = (state: { authDetails: {userAuthenticationDetails: {token: string}}; wizardDetails: {wizardPayload: any[]}; }) => ({
+  const mapStoreStatesToPropsMapper = (state: { authDetails: {userAuthenticationDetails: {token: string}}; wizardDetails: {wizardPayload: WizardModelInterface[]}; }) => ({
     authenticationDetails: state.authDetails,
-    wizards: state.wizardDetails.wizardPayload
+    wizards: state.wizardDetails.wizardPayload as WizardModelInterface[]
   });
 
 export default connect(mapStoreStatesToPropsMapper)(MainLoader);
