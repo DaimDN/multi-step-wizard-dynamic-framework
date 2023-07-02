@@ -1,26 +1,31 @@
 
-    import {Fragment, useState, SyntheticEvent} from 'react';
-    import { Input, Typography, Button, Checkbox } from 'antd';
+import {Fragment, useState, SyntheticEvent} from 'react';
+import { Input, Typography, Button, Checkbox } from 'antd';
 import { AxiosServiceInstance } from '../../common/network/ajaxInstance';
-import { HOME } from '../../routes/urls';
-
+import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 
     const { Title } = Typography;
     const { TextArea } = Input;
 
-    export const FormFragment = ({formFields, stepNo, authenticationDetails, Id}: any) => {
+    /* The above code is a TypeScript React component called `FormFragment`. It is used to render a form
+    with different input fields based on the `stepNo` prop. The form fields and their values are passed
+    through the `formFields` prop. The component also receives `authenticationDetails` and `Id` props. */
+    export const FormFragment = ({formFields, stepNo, authenticationDetails, Id}: 
+        {formFields: { [key: string]: any; }, 
+        stepNo: string | undefined | null, authenticationDetails: any, Id: string| undefined }) => {
+        
+        const [formData, setFormData]: {} | any = useState({});
 
-        const [formData, setFormData]: any = useState({});
-
-    /**
-     * The function `formFieldChanger` is used to update the `formData` state by setting the value of the
-     * input or textarea element with the corresponding name attribute.
-     * @param {React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>} event - The
-     * `event` parameter is an object that represents the event that triggered the change. In this case, it
-     * can be either a `ChangeEvent` for an `<input>` element or a `ChangeEvent` for a `<textarea>`
-     * element.
-     */
-            const formFieldChanger = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | any ) => 
+        /**
+         * The function `formFieldChanger` is used to update the form data by setting the value of the input or
+         * textarea element to the corresponding property in the `formData` object.
+         * @param {React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> |
+         * CheckboxChangeEvent | any} event - The `event` parameter is of type
+         * `React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | CheckboxChangeEvent
+         * | any`. This means that it can accept an event object from various types of form fields, including
+         * input fields (`React.ChangeEvent<HTMLInputElement>`), textarea fields (`React.ChangeEvent
+         */
+            const formFieldChanger = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | CheckboxChangeEvent | any  ) => 
         setFormData({ ...formData, [event.target.name]: event.target.value });
         
     /**
@@ -46,10 +51,7 @@ import { HOME } from '../../routes/urls';
                         data: {step2: formFields.wizard.data.data.step2},
                     },
                 }
-               
                 apiRequestResourceData['wizard']['data'] = step1FormFilledData;
-
-                console.log({formData, step1FormFilledData})
                 try {
                  const updateResourceInServer = await AxiosServiceInstance({'x-auth-appvia-token': authenticationDetails.userAuthenticationDetails.token}).put(`/api/wizard/${Id}`, apiRequestResourceData);
                  console.log({updateResourceInServer});
@@ -73,19 +75,16 @@ import { HOME } from '../../routes/urls';
                 featureEnabledFormData.wizard.data.step1.data.step2.features = allSelectedFeatures;
                 try {
                     await AxiosServiceInstance({'x-auth-appvia-token': authenticationDetails.userAuthenticationDetails.token}).put(`/api/wizard/${Id}`, featureEnabledFormData);
-                    window.location.href = nextNavigationURL;
+                     window.location.href = nextNavigationURL;
                    } catch (error) {
                    alert('Error while updating')
                    }
-
             }
             else{
                 console.log({msg: 'error'});
             }
            
         }
-
-
         /* The code `const fields = formFields?.wizard?.data.step1;` is accessing the `step1` property of the
         `data` property of the `wizard` property of the `formFields` object. It uses optional chaining
         (`?.`) to handle cases where any of the properties in the chain may be undefined. */
@@ -98,32 +97,18 @@ import { HOME } from '../../routes/urls';
             const step2Fields: any = formFields?.wizard?.data.step1.data.step2.features;
             fieldsOfForms = fields && Object.entries(step2Fields);
         }
-
-
-
         return <form style={{textAlign:'left'}} onSubmit={submitForm}>
             {Array.isArray(fieldsOfForms) && <>
-            {fieldsOfForms?.map((field: any) => {
+            {fieldsOfForms && fieldsOfForms.map((field: any) => {
                 return <Fragment>  
-                    {field[1]?.type === 'checkbox'? <Title level={3}>{field[1].value}</Title> : <Title level={3}>{field[0]}</Title> }
-
-                    {field[1]?.type === 'input' && <>
-                    <Input placeholder={field[1].value} name={field[0]} maxLength={63} onChange={formFieldChanger} required />
-                    </>}
+                    {field[1].type === 'checkbox' ? <Title level={3}>{field[1].value}</Title> : <Title level={3}>{field[0]}</Title> }
+                    {field[1].type === 'input' && <Input placeholder={field[1].value} name={field[0]} maxLength={63} onChange={formFieldChanger} required />}
                     <br/>
-                    {field[1]?.type === 'text' && <>
-                    <TextArea rows={12} name={field[0]} onChange={formFieldChanger} placeholder={field[1].value} required/>
-                    </>}
-
-                    {field[1]?.type === 'checkbox' && <>
-                    <Checkbox  onChange={formFieldChanger} value={field[1].value} name={field[0]} >
-                    {field[1].value}
-                    </Checkbox>
-                    </>}
+                    {field[1].type === 'text' && <TextArea rows={12} name={field[0]} onChange={formFieldChanger} placeholder={field[1].value} required/>}
+                    {field[1].type === 'checkbox' && <Checkbox  onChange={formFieldChanger} value={field[1].value} name={field[0]} >{field[1].value}</Checkbox>}
                 </Fragment>
             })}
             </>}
-            <br/><br/>
-            <Button type='primary' htmlType='submit' >Next </Button>
+            <Button type='primary'style={{marginTop: '2vh'}} htmlType='submit' >Next </Button>
         </form>
     }

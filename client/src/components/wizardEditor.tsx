@@ -14,6 +14,7 @@ const WizardEditor = ({authenticationDetails, wizards}:any) => {
     dynamic portion of the URL and use it in your component. In this case, it is extracting the value
     of the `Id` parameter and assigning it to the `Id` variable. */
     const { Id } = useParams();
+
   /* The line `const [searchParams] = useSearchParams();` is using the `useSearchParams` hook from the
   `react-router-dom` library to get access to the search parameters in the URL. */
     const [searchParams] = useSearchParams();
