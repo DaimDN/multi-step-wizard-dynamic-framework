@@ -6,14 +6,15 @@ import {POST_WIZARD_CREATOR,GET_WIZARD, GET_ALL_WIZARD, GET_WIZARD_SETUP_STARTED
     /* The OIDCAuthServiceClient class is responsible for enabling authentication middleware in an Express
     application. */
     export class OIDCAuthServiceClient {
-        /* The line `protected static accessForBiddenError = "Forbidden Access";` is declaring a protected
-        static variable named `accessForBiddenError` and assigning it the value "Forbidden Access". */
-        protected static accessForBiddenError = "Forbidden Access";
+  
+    /* The line `protected accessForBiddenError = "Forbidden Access";` is declaring a protected variable
+    `accessForBiddenError` and assigning it the value "Forbidden Access". This variable is used to
+    store the error message that will be sent in the response when a request does not have a valid
+    token or is not authorized to access a protected route. */
+        protected  accessForBiddenError = "Forbidden Access";
 
-        /* The `protectedRoutes` array is storing a list of URLs that are considered protected routes. These
-        routes require authentication and authorization to access. The array contains the URLs for various
-        HTTP methods such as POST, GET, and PUT, along with their corresponding endpoints. */
-        protected static protectedRoutes = [
+
+        protected  protectedRoutes = [
             POST_WIZARD_CREATOR,
             GET_ALL_WIZARD,
             GET_WIZARD,
@@ -30,13 +31,13 @@ import {POST_WIZARD_CREATOR,GET_WIZARD, GET_ALL_WIZARD, GET_WIZARD_SETUP_STARTED
             */
         public enableFor(app: Application): void {
         app.use((req, res, next)=> {
-                if(OIDCAuthServiceClient.protectedRoutes.includes(req.originalUrl)){
+                if(this.protectedRoutes.includes(req.originalUrl)){
                     const token = req.header(config.get('security.authHeaders'));
                     if(!token){
-                        return res.status(401).json({msg: OIDCAuthServiceClient.accessForBiddenError});
+                        return res.status(401).json({msg: this.accessForBiddenError});
                     }else{
                         if(token !== config.get('security.authToken')){
-                            return res.status(401).json({msg: OIDCAuthServiceClient.accessForBiddenError});
+                            return res.status(401).json({msg: this.accessForBiddenError});
                         }else{
                         return next();
                         }

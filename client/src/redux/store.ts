@@ -5,7 +5,7 @@ import ROOT_REDUCERS from './reducers/index'
 import {getAutToken} from './network/getAuthToken';
 import {GET_WIZARD_DATA, GET_USER_AUTH_DATA, ERROR} from './global/global';
 import {AxiosServiceInstance} from '../common/network/ajaxInstance';
-import { WizardModelInterface } from '../routes';
+import { WizardModelInterface } from '../interface/index';
 const INITIALSTATE : Object = {};
 const MIDDLEWARE_INITIALIZER = [thunk];
 
