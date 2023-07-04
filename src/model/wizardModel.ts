@@ -10,56 +10,90 @@ export const WizardModel = () => {
         id: '',
         wizard: {
                 isDone: false,
-                data: {
-                    step1: {  
-                        name: { type: 'input', value: '' },
-                        description: {type: 'text', value: ''},
-                    },
+                steps: [
+                    {
+                    stepNo: 1,    
                     isDone: false,
-                    data: {
-                        step2: {
-                            features: [
-                            {
-                                id: 1,
-                                value: 'Tab Switcher',
-                                isEnabled: false,
-                                type: 'checkbox',
+                    questions: [  
+                        { question: 'name', type: 'input', value: '' },
+                        {question: 'description',type: 'text', value: ''},
+                    ],
+                    },
+                    {
+                    stepNo: 2,
+                    isDone: false,
+                    questions: [
+                        {
+                            question: 'Tab Switcher',
+                            value: 'Tab Switcher',
+                            isEnabled: false,
+                            type: 'checkbox',
 
-                            },
+                        },
+                        {
+                            question: 'Menu Switcher',
+                            value: 'Menu Switcher',
+                            isEnabled: false,
+                            type: 'checkbox',
+                        },
+                        {
+                            question: 'Footer Switcher',
+                            value: 'Footer Switcher',
+                            isEnabled: false,
+                            type: 'checkbox',
+                        },
+                        {
+                            question: 'Side Menu Switcher',
+                            value: 'Side Menu Switcher',
+                            isEnabled: false,
+                            type: 'checkbox',
+                        },
+                        {
+                            question: 'Dock Launcher',
+                            value: 'Dock Launhcer',
+                            isEnabled: false,
+                            type: 'checkbox',
+                        },
+                        {
+                            question: 'Menu Toggler',
+                            value: 'Menu Toggler',
+                            isEnabled: false,
+                            type: 'checkbox',
+                        }
+                    ],
+                    },
+                    {
+                        stepNo: 3,    
+                        isDone: false,
+                        questions: [  
+                            { question: 'Enter DOB', type: 'input', value: '' },
+                            {question: 'Enter Location',type: 'text', value: ''},
                             {
-                                id: 2,
-                                value: 'Menu Switcher',
+                                question: 'Livin Alone',
+                                value: 'Livin Alone',
                                 isEnabled: false,
                                 type: 'checkbox',
+    
                             },
                             {
-                                id: 3,
-                                value: 'Footer Switcher',
-                                isEnabled: false,
-                                type: 'checkbox',
-                            },
-                            {
-                                id: 4,
-                                value: 'Side Menu Switcher',
-                                isEnabled: false,
-                                type: 'checkbox',
-                            },
-                            {
-                                id: 5,
-                                value: 'Dock Launhcer',
-                                isEnabled: false,
-                                type: 'checkbox',
-                            },
-                            {
-                                id: 6,
-                                value: 'Menu Toggler',
+                                question: 'Married',
+                                value: 'Married',
                                 isEnabled: false,
                                 type: 'checkbox',
                             }
                         ],
                         },
-                    }
-                }
+
+                        {
+                            stepNo: 4,    
+                            isDone: false,
+                            questions: [  
+                                { question: 'Where are you brough up', type: 'input', value: '' },
+                                {question: 'name of star',type: 'text', value: ''},
+                            ],
+                            },    
+                
+                ]
          },
 
     }

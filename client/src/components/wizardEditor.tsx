@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {Typography} from 'antd';
 import {FormFragment} from './partials/FormFragment';
 import { Summary } from './partials/summary';
-import { WizardModelInterface } from '../routes';
+import { WizardModelInterface } from '../interface/index';
 const { Title } = Typography;
 
 /* The `WizardEditor` component is a functional component that receives two props:
@@ -23,27 +23,31 @@ const WizardEditor = ({authenticationDetails, wizards}: {authenticationDetails: 
     const [searchParams] = useSearchParams();
 
     useTitle(Id?.slice(0, 8).toUpperCase() + '- Wizard Creator - Appvia');
-    /* The code `const findWizardFromWizard = Array.isArray(wizards) && wizards.length > 0 ?
+
+    /* The code `const findWizardFromWizard : any  = Array.isArray(wizards) && wizards.length > 0 ?
     wizards.filter(wizard => wizard.id === Id)[0] : [];` is filtering the `wizards` array to find a
-    wizard object that has an `id` property matching the value of `Id`. */
-    const findWizardFromWizard = Array.isArray(wizards) && wizards.length > 0 ? wizards.filter(wizard => wizard.id === Id)[0] : [];
+    wizard with a matching `id` value. If a matching wizard is found, it is assigned to the
+    `findWizardFromWizard` variable. If no matching wizard is found, an empty array is assigned to
+    `findWizardFromWizard`. */
+    const findWizardFromWizard   = Array.isArray(wizards) && wizards.length > 0 ? wizards.filter(wizard => wizard.id === Id)[0] : {} as WizardModelInterface;
+    const totalSteps = findWizardFromWizard.wizard && findWizardFromWizard['wizard'].steps.length;
 
     /* The code `const editOption = searchParams.get('edit');` and `const stepNo =
     searchParams.get('step');` are retrieving the values of the query parameters 'edit' and 'step' from
     the URL's search parameters. */
+
     const editOption = searchParams.get('edit');
     const stepNo = searchParams.get('step');
     const summaryPreview = searchParams.get('preview');
 
-    console.log({editOption, stepNo, summaryPreview})
+    console.log({editOption})
 
     return <Fragment>
         <main className='wizard_screen'>
       <Title>Wizard Editor - {Id?.slice(0, 8).toUpperCase()}</Title>
       <Title level={3}> {stepNo && 'Step No: '+ stepNo} {summaryPreview && 'Summary'}</Title>
-       {Number(stepNo) === 1 && <FormFragment formFields={{...findWizardFromWizard}} stepNo={stepNo} authenticationDetails={authenticationDetails} Id={Id}/>}
-       {Number(stepNo) === 2 && <FormFragment formFields={{...findWizardFromWizard}} stepNo={stepNo} authenticationDetails={authenticationDetails} Id={Id}/>}
-       {summaryPreview && <Summary formFields={{...findWizardFromWizard}}/>}
+      <FormFragment formFields={{...findWizardFromWizard}} stepNo={stepNo} authenticationDetails={authenticationDetails} Id={Id} totalSteps={totalSteps} />
+      {summaryPreview && <Summary formFields={{...findWizardFromWizard}}/>}
       </main>
     </Fragment>
 }

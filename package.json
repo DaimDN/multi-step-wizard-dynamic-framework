@@ -5,11 +5,15 @@
   "main": "server.js",
   "scripts": {
     "install": "concurrently \"npm install\" \"npm install --prefix client\"",
+    "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
+    "build:server": "rimraf ./build && tsc",
     "build:client": "npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "concurrently \"npm run build:client\" \"npm run start\"",
     "start:dev": "npx nodemon",
-    "build": "rimraf ./build && tsc",
-    "start": "node build/index.js",
+    "dev": "concurrently \"npm run start:dev \" \"npm run client\"",
+    "client": "npm start --prefix client",
+    "start": "node build/server.js",
     "lint": "eslint . --ext .ts"
   },
   "repository": {

@@ -4,6 +4,7 @@ import * as URLS from './urls';
 import {WizardRepository, WizardRepositoryStorages} from './DB/respository';
 import {WizardModel} from './model/wizardModel';
 import { v4 as uuidv4 } from 'uuid';
+import { WizardModelInterface } from '.';
 
     type AppRequest =  Request | any;
 
@@ -14,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
     and updating the data of a specific wizard. */
 export class ProtectedRoutedNavigationSetup {
 
-    protected Repository: Map<string, any[]>;
+    protected Repository: Map<string, WizardModelInterface[]>;
     /**
      * The constructor initializes the Repository property by getting the instance of the WizardRepository
      * and accessing its repository.
@@ -51,22 +52,7 @@ export class ProtectedRoutedNavigationSetup {
                 return res.status(200).json({wizard: foundWizards?.[0]})
             }
         });
-
-        /* The code block you provided is handling a POST request to create a new wizard. */
-
     
-        app.post(URLS.POST_WIZARD_CREATOR as string , (req: AppRequest, res: AppResponse)=> {
-            const RandomID = uuidv4();
-            const newModel = WizardModel();
-            newModel.id = RandomID;
-            if(!this.Repository.has(WizardRepositoryStorages.Wizards)){
-                this.Repository.set(WizardRepositoryStorages.Wizards, [newModel]);
-            }else{
-                const currentWizardInCache = this.Repository.get(WizardRepositoryStorages.Wizards) as [];
-                this.Repository.set(WizardRepositoryStorages.Wizards, [...currentWizardInCache, newModel]);
-            }
-            return res.status(200).json({wizards: this.Repository.get(WizardRepositoryStorages.Wizards), msg: 'Wizard added successfully', status: 200})
-        });
 
     /* The code block you provided is handling a POST request to create a new wizard. */
         app.post(URLS.POST_WIZARD_CREATOR as string , (req: AppRequest, res: AppResponse)=> {
@@ -74,9 +60,9 @@ export class ProtectedRoutedNavigationSetup {
             const newModel = WizardModel();
             newModel.id = RandomID;
             if(!this.Repository.has(WizardRepositoryStorages.Wizards)){
-                this.Repository.set(WizardRepositoryStorages.Wizards, [newModel]);
+                this.Repository.set(WizardRepositoryStorages.Wizards, [newModel] as any);
             }else{
-                const currentWizardInCache = this.Repository.get(WizardRepositoryStorages.Wizards) as [];
+                const currentWizardInCache = this.Repository.get(WizardRepositoryStorages.Wizards) as [] | any;
                 this.Repository.set(WizardRepositoryStorages.Wizards, [...currentWizardInCache, newModel]);
             }
             return res.status(200).json({wizards: this.Repository.get(WizardRepositoryStorages.Wizards), msg: 'Wizard added successfully', status: 200})
