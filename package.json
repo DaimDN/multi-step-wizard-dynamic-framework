@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "install": "concurrently \"npm install\" \"npm install --prefix client\"",
-    "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
+    "install:client": "npm install --prefix client",
     "build:server": "rimraf ./build && tsc",
-    "build:client": "npm run build --prefix client",
+    "build": "npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prod": "concurrently \"npm run build:client\" \"npm run start\"",
     "start:dev": "npx nodemon",
