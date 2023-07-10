@@ -62,37 +62,6 @@ export const WizardModel = () => {
                         }
                     ],
                     },
-                    {
-                        stepNo: 3,    
-                        isDone: false,
-                        questions: [  
-                            { question: 'Enter DOB', type: 'input', value: '' },
-                            {question: 'Enter Location',type: 'text', value: ''},
-                            {
-                                question: 'Livin Alone',
-                                value: 'Livin Alone',
-                                isEnabled: false,
-                                type: 'checkbox',
-    
-                            },
-                            {
-                                question: 'Married',
-                                value: 'Married',
-                                isEnabled: false,
-                                type: 'checkbox',
-                            }
-                        ],
-                        },
-
-                        {
-                            stepNo: 4,    
-                            isDone: false,
-                            questions: [  
-                                { question: 'Where are you brough up', type: 'input', value: '' },
-                                {question: 'name of star',type: 'text', value: ''},
-                            ],
-                            },    
-                
                 ]
          },
 
