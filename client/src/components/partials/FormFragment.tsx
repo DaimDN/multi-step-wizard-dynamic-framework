@@ -1,14 +1,32 @@
 
-import {Fragment, useState, SyntheticEvent} from 'react';
-import { Input, Typography, Button, Checkbox } from 'antd';
-import { AxiosServiceInstance } from '../../common/network/ajaxInstance';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox'
-import { QuestionWithCheckBoxes, QuestionWithNameAnddescription } from '../../interface';
+    import {Fragment, useState, SyntheticEvent} from 'react';
+    import { Input, Typography, Button, Checkbox } from 'antd';
+    import { AxiosServiceInstance } from '../../common/network/ajaxInstance';
+    import type { CheckboxChangeEvent } from 'antd/es/checkbox'
+    import { QuestionWithCheckBoxes, QuestionWithNameAnddescription } from '../../interface';
+    import {STORE} from '../../redux/store';
+    import { API_VALIDATION_ERROR } from '../../redux/global/global';
 
+
+
+    /* The code `const { Title } = Typography; const { TextArea } = Input;` is importing specific
+    components from the `Typography` and `Input` modules of the `antd` library. */
     const { Title } = Typography;
     const { TextArea } = Input;
 
 
+    /**
+     * The function `mapKeyEntryToFormDataValues` takes a key-value pair and maps it to a specific format
+     * based on the key's wildcard split, returning an object with the question, type, value, and isEnabled
+     * properties.
+     * @param {string} key - The `key` parameter is a string that represents the key of a map entry.
+     * @param {string} value - The `value` parameter in the `mapKeyEntryToFormDataValues` function is a
+     * string that represents the value associated with a specific key.
+     * @returns The function `mapKeyEntryToFormDataValues` returns an object `filledQuestionWithValues`
+     * with properties `question`, `type`, `value`, and `isEnabled`. The values of these properties depend
+     * on the `questionType` parameter. If `questionType` is `'checkbox'`, the `type` property is set to
+     * `'checkbox'`, `isEnabled` is set to `true`, and
+     */
     const mapKeyEntryToFormDataValues = (key: string, value: string) => {
         const wildCartSplitter = key.split('*');
         const question = wildCartSplitter[0];
@@ -90,8 +108,11 @@ import { QuestionWithCheckBoxes, QuestionWithNameAnddescription } from '../../in
                 const NavigatableURL = Number(stepNo) < totalSteps ? `edit=true&step=${Number(stepNo)+ 1}` : 'preview=summary';
                 await AxiosServiceInstance({'x-auth-appvia-token': authenticationDetails.userAuthenticationDetails.token}).put(`/api/wizard/${Id}`, formFields);
                window.location.href =  window.location.href.split(`edit=true&step=${stepNo}`).join(NavigatableURL);
-               } catch (error) {
-               alert('Error while updating')
+               } catch (error: any) {
+                STORE.dispatch({
+                    type: API_VALIDATION_ERROR,
+                    payload: {formError: [error.response.data.msg]}
+                })
                }
            
         }
@@ -106,7 +127,7 @@ import { QuestionWithCheckBoxes, QuestionWithNameAnddescription } from '../../in
             {questionsOfCurrentStep && questionsOfCurrentStep.map((field: any) => {
                 return <Fragment>  
                      <Title level={3}>{field.question}</Title>
-                    {field.type === 'input' && <Input placeholder={field.value} name={field.question+"*input"} maxLength={63} onChange={formFieldChanger} required />}
+                    {field.type === 'input' && <Input placeholder={field.value} name={field.question+"*input"} onChange={formFieldChanger} required />}
                     <br/>
                     {field.type === 'text' && <TextArea rows={12} name={field.question+"*text"} onChange={formFieldChanger} placeholder={field.value} required/>}
                     {field.type === 'checkbox' && <Checkbox onChange={formFieldChanger} value={field.question} name={field.value+"*checkbox"} >{field.value}</Checkbox>}
