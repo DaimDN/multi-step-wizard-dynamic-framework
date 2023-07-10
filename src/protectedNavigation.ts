@@ -4,7 +4,8 @@ import * as URLS from './urls';
 import {WizardRepository, WizardRepositoryStorages} from './DB/respository';
 import {WizardModel} from './model/wizardModel';
 import { v4 as uuidv4 } from 'uuid';
-import { WizardModelInterface } from '.';
+import { InputValidator } from './middleware/validators/Input';
+import {WizardModelInterface} from './index'
 
     type AppRequest =  Request | any;
 
@@ -86,7 +87,7 @@ export class ProtectedRoutedNavigationSetup {
 
        /* The code block you provided is handling a PUT request to update the data of a specific wizard
        in the repository. */
-        app.put(URLS.PUT_UPDATE_WIZARD_DATA as string, (req: AppRequest, res: AppResponse)=> {
+        app.put(URLS.PUT_UPDATE_WIZARD_DATA as string, new InputValidator().enableFor , (req: AppRequest, res: AppResponse)=> {
             const {Id} = req.params;
             const updatedData = req.body;
             const data = this.Repository.get(WizardRepositoryStorages.Wizards)?.map(wizard => {
