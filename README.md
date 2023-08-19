@@ -1,4 +1,4 @@
-# Multi Step Wizard 
+# Multi Step Wizard Dynamic framework
 
 
 ### Installation
